@@ -8,7 +8,6 @@
 # Installation
 
 ```diff
- continued line
 -;extension=php_gd.dll
 +extension=php_gd.dll
 ```
