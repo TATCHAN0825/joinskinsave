@@ -3,4 +3,5 @@ name: joinskinsave
 version: 0.0.1
 main: tatchan\joinskinsave\Main
 api: 3.19.0
+extensions: [gd]
 ...

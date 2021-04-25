@@ -12,16 +12,10 @@ class Main extends PluginBase implements Listener
 {
 
     public function onEnable() {
-        if (extension_loaded("gd")) {
             $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        } else {
-            $this->getServer()->forceShutdown();
-            $this->getLogger()->alert("gdライブラリーがロードされてません");
-        }
     }
 
     public function onJoin(PlayerJoinEvent $event) {
-        if (extension_loaded("gd")) {
             $player = $event->getPlayer();
             $skin_raw = $player->getSkin()->getSkinData();
 
@@ -69,5 +63,4 @@ class Main extends PluginBase implements Listener
             imagedestroy($img);
         }
 
-    }
 }
