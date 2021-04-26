@@ -22,7 +22,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: PHAR
+          name: JoinSkinSave
           path: ./JoinSkinSave.phar
 
     
