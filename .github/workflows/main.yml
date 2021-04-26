@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: cheackout
-        uses: actions/cheackout@v2
+        uses: actions/checkout@v2
       - name: pharmake
         run: php -dphar.readonly=0 ConsoleScript.php --make . --out JoinSkinSave.phar
       - name: Upload artifact
