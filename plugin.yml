@@ -4,4 +4,8 @@ version: 1.0.0
 main: tatchan\joinskinsave\Main
 api: 3.0.0
 extensions: [gd]
+author: tatchan
+authors:
+  - pjz9n
+  - suinua
 ...
