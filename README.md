@@ -1,29 +1,24 @@
-# Name JoinSaveSkin
+# JoinSaveSkin
 
- 
-# Requirement
- 
+## Requirement
 * gd
- 
-# Installation
 
+### Enable GD Library
+`extension=php_gd.dll`のコメントアウトを解除します
 ```diff
--;extension=php_gd.dll
-+extension=php_gd.dll
+- ;extension=php_gd.dll
++ extension=php_gd.dll
 ```
 
+## Usage
+* プラグインを入れてサーバーに参加する
+* プレイヤーのスキンデータ(png)が保存されます！
 
-# Usage
-
- プラグインを入れて参加するだけ  
-plugin_date\joinskinsave\プレイヤーネーム 
+`plugin_data\joinskinsave\プレイヤー名.png`
  
-# Author
- 
+## Author
 * tatchan
 
-# SpecialThanks
-
+## SpecialThanks
 * suinua
-
 * [参照したコード](https://gist.github.com/suinua/315d8239dce060615e184acf2264bbfe)
