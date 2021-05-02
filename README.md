@@ -24,7 +24,7 @@ php.ini
 * サーバーに参加します
 * プレイヤーのスキンデータ(png)が保存されます！
 
-`plugin_data/joinskinsave/<プレイヤー名>.png`
+`plugin_data/joinskinsave/<プレイヤー名>/<Y-m-d-H-i-s>.png`
  
 ### Author
 * tatchan
@@ -51,7 +51,7 @@ php.ini
 * Join the server
 * The player's skin data (png) will be saved!
 
-`plugin_data/joinskinsave/<player name>.png`
+`plugin_data/joinskinsave/<player name>/<Y-m-d-H-i-s>.png`
  
 ### Author
 * tatchan
