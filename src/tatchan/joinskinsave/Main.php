@@ -7,56 +7,36 @@ namespace tatchan\joinskinsave;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
+use tatchan\joinskinsave\Task\SkinSaveTask;
 
-class Main extends PluginBase implements Listener {
+class Main extends PluginBase implements Listener
+{
+    /** @var Config */
+    private $skinHashes;
+
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->skinHashes = new Config($this->getDataFolder() . "skin-hashes.yml");
+
     }
 
-    public function onJoin(PlayerJoinEvent $event) {
+    public function onPlayerJoin(PlayerJoinEvent $event): void {
         $player = $event->getPlayer();
-        $skin_raw = $player->getSkin()->getSkinData();
-
-        $height = 64;
-        $width = 64;
-        switch (strlen($skin_raw)) {
-            case 64 * 32 * 4:
-                $height = 32;
-                $width = 64;
-                break;
-            case 64 * 64 * 4:
-                $height = 64;
-                $width = 64;
-                break;
-            case 128 * 64 * 4:
-                $height = 64;
-                $width = 128;
-                break;
-            case 128 * 128 * 4:
-                $height = 128;
-                $width = 128;
-                break;
+        $name = $player->getName();
+        $skinData = $player->getSkin()->getSkinData();
+        $skinDataHash = sha1($skinData);
+        $hashes = $this->skinHashes->get($name, []);
+        if (!in_array($skinDataHash, $hashes, true)) {
+            $hashes[] = $skinDataHash;
+            $this->skinHashes->set($name, $hashes);
+            @mkdir($this->getDataFolder() . $name . "/");
+            $this->getServer()->getAsyncPool()->submitTask(new SkinSaveTask($skinData, $this->getDataFolder() . $name . "/" . date("Y-m-d-H-i-s") . ".png"));
         }
-
-        $img = imagecreatetruecolor($width, $height);
-        imagealphablending($img, false);
-        imagesavealpha($img, true);
-
-        $index = 0;
-        for ($y = 0; $y < $height; ++$y) {
-            for ($x = 0; $x < $width; ++$x) {
-                $list = substr($skin_raw, $index, 4);
-                $r = ord($list[0]);
-                $g = ord($list[1]);
-                $b = ord($list[2]);
-                $a = 127 - (ord($list[3]) >> 1);
-                $index += 4;
-                $color = imagecolorallocatealpha($img, $r, $g, $b, $a);
-                imagesetpixel($img, $x, $y, $color);
-            }
-        }
-
-        imagepng($img, $this->getDataFolder() . $player->getName() . ".png");
-        imagedestroy($img);
     }
+
+    public function onDisable() {
+        $this->skinHashes->save();
+    }
+
 }
